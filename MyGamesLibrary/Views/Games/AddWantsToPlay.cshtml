@@ -1,0 +1,50 @@
+﻿@model WantsToPlay
+@{
+    ViewData["Title"] = "AddWantsToPlay";
+}
+
+<h1>Add New Game</h1>
+
+<form method="get" asp-controller="Games" asp-action="SaveAdd2">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" class="form form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Type</label>
+        <input asp-for="GameType" class="form form-control" />
+        <span asp-validation-for="GameType" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Company</label>
+        <input asp-for="Company" class="form form-control" />
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Size</label>
+        <input asp-for="Size" class="form form-control" />
+        <span asp-validation-for="Size" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Status</label>
+        <select name="Status" class="form form-control">
+            <option>Downloaded</option>
+            <option>NotDownloaded</option>
+        </select>
+    </div>
+
+    <hr />
+
+    <div>
+        <input type="submit" value="create" class="btn btn-primary" />
+    </div>
+    <div>
+        <a asp-controller="Games" asp-action="WantsToPlay">Back</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

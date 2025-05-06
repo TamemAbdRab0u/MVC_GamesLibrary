@@ -1,0 +1,236 @@
+﻿@model List<Played>
+@{
+    ViewData["Title"] = "PLayed";
+}
+
+<style>
+.search-container {position: absolute;top: 60px;right: 30px;display: flex;align-items: center;padding:10px;}
+.search-container input {border: none;outline: none;background: #3d0000;padding: 10px 15px;color: white;font-size: 16px;width: 200px;font-family: monospace;transition:.3s}
+.search-container button {background: #c20a0a;color:white;border: none;padding: 8px 12px;cursor: pointer;transition: 0.3s ease;box-shadow: 0px 0px 10px 1px #ff0000;font-family: sans-serif;font-weight:bold;font-size:18px}
+.search-container button:hover {box-shadow: 0px 0px 10px 4px #ff4444;}
+.search-container input:focus{border: 1px solid #3f0000;box-shadow: 0 0 6px 0px #9c0000;}
+.favdiv{position: absolute;left: 75.5%;top: 4.5%;}
+.fav{text-decoration: none;color: #ffffff;background-color: #c20a0a;border-radius: 5px;box-shadow: 0px 0px 12px 2px #ff0000;padding: 10px;font-size: 20px;font-weight: bold;font-family: sans-serif;transition: .2s;}
+.favdiv :hover{color:red;background-color:whitesmoke;}
+ table .heart i:hover{color: red;}
+
+    .input-container {
+        position: relative;
+    }
+
+    .input {
+        padding: 10px;
+        height: 40px;
+        border: 2px solid #0B2447;
+        border-top: none;
+        border-bottom: none;
+        font-size: 16px;
+        background: transparent;
+        outline: none;
+        box-shadow: 7px 7px 0px 0px #0B2447;
+        transition: all 0.5s;
+    }
+
+        .input:focus {
+            box-shadow: none;
+            transition: all 0.5s;
+        }
+
+    .label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #0B2447;
+        transition: all 0.5s;
+        transform: scale(0);
+        z-index: -1;
+    }
+
+    .input-container .topline {
+        position: absolute;
+        content: "";
+        background-color: #0B2447;
+        width: 0%;
+        height: 2px;
+        right: 0;
+        top: 0;
+        transition: all 0.5s;
+    }
+
+    .input-container input[type="text"]:focus ~ .topline {
+        width: 35%;
+        transition: all 0.5s;
+    }
+
+    .input-container .underline {
+        position: absolute;
+        content: "";
+        background-color: #0B2447;
+        width: 0%;
+        height: 2px;
+        right: 0;
+        bottom: 0;
+        transition: all 0.5s;
+    }
+
+    .input-container input[type="text"]:focus ~ .underline {
+        width: 100%;
+        transition: all 0.5s;
+    }
+
+    .input-container input[type="text"]:focus ~ .label {
+        top: -10px;
+        transform: scale(1);
+        transition: all 0.5s;
+    }
+
+</style>
+
+<body style="background-image: linear-gradient(#1f0000, #690606, #260000);">
+
+    <!--Start Search-->
+    <form id="searchForm" class="search-container">
+        <input type="text" name="searchname" id="search" placeholder="Search..." autocomplete="off" />
+        <button type="submit">Search</button>
+    </form>
+
+
+    <div id="searchResults"></div>
+    <!--End Search-->
+
+    <!--Start Favourite-->
+    <div class="favdiv" id="Fav">
+        <a asp-controller="Games" asp-action="showfav" class="fav"><i class="fa fa-heart"></i></a>
+    </div>
+    <!--End Favourite-->
+
+    <div id="Original">
+
+    <!--Start Title-->
+    <h1 style="color: #b20000;font-weight: bold;text-shadow: 1px -1px 0px #ffb9b9;font-size: 50px;font-family: Arial;">
+        PLayed Games
+    </h1>
+    <!--End Title-->
+
+<hr />
+
+    <!--Start Add-->
+   <a asp-controller="Games" asp-action="AddPlayed"
+       style="text-decoration:none; color: #ffffff;background-color: #c20a0a;border-radius: 5px;box-shadow: 0px 0px 12px 2px #ff0000;padding: 10px;font-size: 20px;font-weight: bold;font-family: sans-serif;"> Add Game
+   </a>
+    <!--End Add-->
+<hr />
+
+<table class="table table-bordered table-hover">
+
+        <tr style="color: darkred;
+                   text-shadow: 0px 1px 2px #ffffff;
+                   font-family: monospace;
+                   font-size: 20px;
+                   background-image: linear-gradient(156deg, #260000, #260000);">
+        <th>Name</th>
+        <th>Type</th>
+        <th>Company</th>
+        <th>Size</th>
+        <th>Likeit</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Fav</th>
+    </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr style="color: white;
+                   font-family: monospace;
+                   font-weight: 600;">
+            <td>@item.Name</td>
+            <td>@item.GameType</td>
+            <td>@item.Company</td>
+            <td>@item.Size</td>
+                @if (item.LikeIt == true)
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b; padding-left:30px">Yes</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c; padding-left:30px">No</td>
+                }
+                @if(item.Status == "Completed")
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b;">@item.Status</td>
+                }
+                else if (item.Status == "Continuous")
+                {
+                    <td style="color: #8b82c5; text-shadow: -1px 1px 7px #5bb6ff;">@item.Status</td>
+                }
+                else if (item.Status == "InProccess")
+                {
+                            <td style="color: #ffcd54; text-shadow: -1px 1px 7px #ffc792;">@item.Status</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c">@item.Status</td>
+                }
+            <td>
+                    <a asp-controller="Games" asp-action="EditPlayed" asp-route-name="@item.Name"
+                       style="text-decoration:none; color: #ffffff;
+                              background-color: #c20a0a;
+                              border-radius: 5px;
+                              box-shadow: 0px 0px 12px 2px #ff0000;
+                              padding: 2px;
+                              margin-left:8px"> Edit</a>
+            </td>
+                <td class="heart">
+                    <a asp-controller="Games" asp-action="AddFav" asp-route-name="@item.Name"
+                       style="text-decoration:none; color: #ffffff;
+                              padding: 2px;
+                              margin-left:8px">
+                        <i class="fa fa-heart"></i>
+
+                    </a>
+            </td>
+        </tr>
+    }
+</table>
+
+    </div>
+
+</body>
+
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchForm").on("submit", function (e) {
+            e.preventDefault();
+        });
+
+        $("#search").on("keyup", function () {
+            var searchQuery = $(this).val();
+
+            if (searchQuery.length > 0) {
+                $("#Original").hide();
+                $("#Fav").hide();
+
+                $.ajax({
+                    url: '/Games/Search',
+                    type: 'GET',
+                    data: { searchname: searchQuery },
+                    success: function (response) {
+                        $("#searchResults").html(response);
+                    },
+                    error: function () {
+                        $("#searchResults").html("<p style='color:red;'>Error fetching search results.</p>");
+                    }
+                });
+            } else {
+                $("#searchResults").html("");
+                $("#Original").show();
+                $("#Fav").show();
+            }
+        });
+    });
+</script>

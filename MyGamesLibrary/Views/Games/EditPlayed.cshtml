@@ -1,0 +1,61 @@
+﻿@model Played
+@{
+    ViewData["Title"] = "EditPlayed";
+}
+
+<h1>Edit</h1>
+
+<form method="post" asp-controller="Games" asp-action="SaveEdit" asp-route-name="@Model.Name">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" class="form form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Type</label>
+        <input asp-for="GameType" class="form form-control" />
+        <span asp-validation-for="GameType" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Company</label>
+        <input asp-for="Company" class="form form-control" />
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Size</label>
+        <input asp-for="Size" class="form form-control" />
+        <span asp-validation-for="Size" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Like it?</label>
+        <select asp-for="LikeIt" class="form form-control">
+            <option>true</option>
+            <option>false</option>
+        </select>
+        <span asp-validation-for="LikeIt" class="text-danger"></span>
+    </div>
+    <div>
+        <label>Status</label>
+        <select asp-for="Status" class="form form-control">
+            <option>Completed</option>
+            <option>NotCompleted</option>
+            <option>Continuous</option>
+            <option>InProccess</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <hr />
+
+    <div>
+        <input type="submit" value="Edit" class="btn btn-primary" />
+    </div>
+    <div>
+        <a asp-controller="Games" asp-action="Played">Back</a>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

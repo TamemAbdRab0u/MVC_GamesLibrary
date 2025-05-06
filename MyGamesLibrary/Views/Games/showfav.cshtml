@@ -1,0 +1,140 @@
+﻿@model List<Favourite>
+@{
+    ViewData["Title"] = "AddFav";
+}
+
+<style>
+    .Btn-Container {
+        display: flex;
+        height: fit-content;
+        background-color: transparent;
+        border-radius: 40px;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        cursor: pointer;
+    }
+
+    .icon-Container {
+        width: 45px;
+        height: 45px;
+        background-image: linear-gradient(45deg, #301717, #df0000);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+        .icon-Container svg {
+            transition-duration: 1.5s;
+        }
+
+    .Btn-Container:hover .icon-Container svg {
+        transition-duration: 1.5s;
+        animation: arrow 1s linear infinite;
+    }
+
+    @@keyframes arrow {
+        0% {
+            opacity: 0;
+            margin-left: 0px;
+        }
+
+        100% {
+            opacity: 1;
+            margin-left: 10px;
+        }
+    }
+
+</style>
+
+<body style="background-image: linear-gradient(#1f0000, #690606, #260000);">
+
+    <h1>Favourite Games</h1>
+
+
+    <!--Start Table-->
+    <table class="table table-bordered table-hover">
+
+        <tr style="color: darkred;
+                   text-shadow: 0px 1px 2px #ffffff;
+                   font-family: monospace;
+                   font-size: 20px;
+                   background-image: linear-gradient(156deg, #260000, #260000);">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Company</th>
+            <th>Size</th>
+            <th>Likeit</th>
+            <th>Status</th>
+            <th>Delete</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr style="color: white;
+                   font-family: monospace;
+                   font-weight: 600;">
+                <td>@item.Name</td>
+                <td>@item.GameType</td>
+                <td>@item.Company</td>
+                <td>@item.Size</td>
+                @if (item.LikeIt == true)
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b; padding-left:25px;width:60px">Yes</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c; padding-left:25px;width:60px">No</td>
+                }
+                @if (item.Status == "Completed")
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b;width:120px">@item.Status</td>
+                }
+                else if (item.Status == "Continuous")
+                {
+                    <td style="color: #8b82c5; text-shadow: -1px 1px 7px #5bb6ff;width:120px">@item.Status</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c;width:120px">@item.Status</td>
+                }
+                <td style="width:70px">
+                    <a asp-controller="Games" asp-action="DeleteFav" asp-route-name="@item.Name"
+                       style="text-decoration:none; color: #ffffff;
+                              background-color: #c20a0a;
+                              border-radius: 5px;
+                              box-shadow: 0px 0px 12px 2px #ff0000;
+                              padding: 2px;"> Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <!--End Table-->
+
+    <!--Start Button-->
+    <a asp-controller="Games" asp-action="Played">
+        <button class="Btn-Container">
+            <span class="text"></span>
+            <span class="icon-Container">
+                <svg width="16"
+                     height="19"
+                     viewBox="0 0 16 19"
+                     fill="nones"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="1.61321" cy="1.61321" r="1.5" fill="black"></circle>
+                    <circle cx="5.73583" cy="1.61321" r="1.5" fill="black"></circle>
+                    <circle cx="5.73583" cy="5.5566" r="1.5" fill="black"></circle>
+                    <circle cx="9.85851" cy="5.5566" r="1.5" fill="black"></circle>
+                    <circle cx="9.85851" cy="9.5" r="1.5" fill="black"></circle>
+                    <circle cx="13.9811" cy="9.5" r="1.5" fill="black"></circle>
+                    <circle cx="5.73583" cy="13.4434" r="1.5" fill="black"></circle>
+                    <circle cx="9.85851" cy="13.4434" r="1.5" fill="black"></circle>
+                    <circle cx="1.61321" cy="17.3868" r="1.5" fill="black"></circle>
+                    <circle cx="5.73583" cy="17.3868" r="1.5" fill="black"></circle>
+                </svg>
+            </span>
+        </button>
+    </a>
+    <!--End Button-->
+</body>

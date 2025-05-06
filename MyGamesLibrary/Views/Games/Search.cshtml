@@ -1,0 +1,71 @@
+﻿@model List<Played>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1 style="color: #b20000;font-weight: bold;text-shadow: 1px -1px 0px #ffb9b9;font-size: 50px;font-family: Arial;margin-left:-8px">
+    PLayed Games
+</h1>
+
+<h3 style="color:white">
+    Found <span style="color:#ffe7e7;text-shadow: 1px 1px 1px #ff0000;">@Model.Count()</span> Result
+</h3>
+
+<body style="background-image: linear-gradient(#1f0000, #690606, #260000);">
+    <table class="table table-bordered table-hover">
+
+        <tr style="color: darkred;
+                   text-shadow: 0px 1px 2px #ffffff;
+                   font-family: monospace;
+                   font-size: 20px;
+                   background-image: linear-gradient(156deg, #260000, #260000);">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Company</th>
+            <th>Size</th>
+            <th>Likeit</th>
+            <th>Status</th>
+            <th>Edit</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr style="color: white;
+                   font-family: monospace;
+                   font-weight: 600;">
+                <td>@item.Name</td>
+                <td>@item.GameType</td>
+                <td>@item.Company</td>
+                <td>@item.Size</td>
+                @if (item.LikeIt == true)
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b;width:60px;padding-left:25px">Yes</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c;width:60px;padding-left:30px">No</td>
+                }
+                @if (item.Status == "Completed")
+                {
+                    <td style="color: #edffed; text-shadow: 1px 1px 6px #87ef8b;width:60px">@item.Status</td>
+                }
+                else if (item.Status == "Continuous")
+                {
+                    <td style="color: #8b82c5; text-shadow: -1px 1px 7px #5bb6ff;width:60px">@item.Status</td>
+                }
+                else
+                {
+                    <td style="color: #9f9a9a; text-shadow: -1px 1px 6px #ff0c0c;width:60px">@item.Status</td>
+                }
+                <td style="width:70px">
+                    <a asp-controller="Games" asp-action="EditPlayed" asp-route-name="@item.Name"
+                       style="text-decoration:none; color: #ffffff;
+                              background-color: #c20a0a;
+                              border-radius: 5px;
+                              box-shadow: 0px 0px 12px 2px #ff0000;
+                              padding: 2px;margin-left:8px"> Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+</body>

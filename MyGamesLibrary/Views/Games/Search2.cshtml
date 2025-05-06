@@ -1,0 +1,50 @@
+﻿@model List<WantsToPlay>
+@{
+    ViewData["Title"] = "Search2";
+}
+
+<h1 style="color: #1e5ace;font-weight: bold;text-shadow: 1px -1px 0px #ffffff;font-size: 50px;font-family: Arial;">
+    WishList
+</h1>
+
+<h3 style="color:white">
+    Found <span style="color:#ffe7e7;text-shadow: 1px 1px 1px #000af4;">@Model.Count()</span> Result
+</h3>
+
+<body style="background-image: linear-gradient(#00021f, #091045, #040026);">
+
+    <table class="table table-bordered table-hover">
+        <tr style="color: #070494;
+                   text-shadow: 0px 1px 2px #ffffff;
+                   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                   font-size: 20px;
+                   background-image: linear-gradient(156deg, #070026, #070026);">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Company</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Edit</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr style="color: white;
+                   font-family: monospace;
+                   font-weight: 600;">
+                <td>@item.Name</td>
+                <td>@item.GameType</td>
+                <td>@item.Company</td>
+                <td style="width:90px">@item.Size</td>
+                <td style="text-shadow: 1px 1px 10px #87ef8b;width:70px">@item.Status</td>
+                <td style="width:70px">
+                    <a asp-controller="Games" asp-action="EditWanted" asp-route-name="@item.Name"
+                       style="text-decoration:none; color: #ffffff;
+                              background-color: #06108f;
+                              border-radius: 5px;
+                              box-shadow: 0px 0px 12px 2px #146dab;
+                              padding: 2px;margin-left:8px"> Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
